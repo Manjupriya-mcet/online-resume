@@ -1,175 +1,106 @@
-# online-resume
-my first online resume
-my map is not displayed
-/*
-This is empty on purpose! Your code to build the resume will go here.
- */
+# Project Details
+## How do I complete this project?
+Review the Online Resume [Project Rubric](https://review.udacity.com/?_ga=1.189245867.12280332.1465333852#!/projects/2962818615/rubric).
 
-var bio = {
-  "name" : "Manjupriya",
-  "role" : "Web developer",
-  "welcomeMessage" : "welcome to my resume",
-  "biopic" : "https://s-media-cache-ak0.pinimg.com/originals/7f/a4/9e/7fa49e8b80d41fbcb94c12dab1fd28aa.jpg",
-  "contacts" : {
-    "mobile" : 9952723678,
-    "email" : "manjurigha@gmail.com",
-    "github" : "manjupriya-mcet",
-    "location" : "TamilNadu"
-  },
-  "skills" : ["coding","developer","teamwork","HTML","CSS"]
+1. In this project you will store your resume data in four javaScript objects according to the schema given below. As is often the case when leveraging an API, the objects must follow the schema exactly. All properties must be present and have real or fake values. The names must match those in the schema (note that object and property names are case-sensitive). All property values should be of the data-type given for the property in the schema. For example if the data-type is given as an array, it is not acceptable to use a string as a value for that property.
+2. Once you've created your javaScript objects, you will write the code needed to display all of the resume data contained within these objects in your resume.
+3. All of the HTML code needed to build the resume is stored in **js/helper.js** variables. The variable names indicate their function. You will replace substrings in these variable string values such as **%data%** and **#** with the data in your javaScript objects, and append or prepend the formatted result to your resume in the appropriate location.
+4. If you need a refresher on JavaScript syntax, go to the [Javascript Basics](https://classroom.udacity.com/nanodegrees/nd001/parts/0011345406/modules/296281861575460/lessons/1946788554/concepts/25505685350923) course; if you would like to understand how this project is manipulating and traversing the DOM, check out [Intro to jQuery](https://classroom.udacity.com/nanodegrees/nd001/parts/0011345406/modules/296281861575461/lessons/3314378535/concepts/33166386820923).
+5. Go through the videos and assignments in this course to learn the JavaScript necessary to build your resume.
+6. Fork the project repo from [Github](https://github.com/udacity/frontend-nanodegree-resume) and begin building you resume.
+7. If you are prompted to do so, you may want to get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key), and include it as the value of the `key` parameter when loading the Google Maps API in **index.html**:
+```<script  src="http://maps.googleapis.com/maps/api/js?libraries=places&key=[YOUR_API_KEY]"></script> ``` You may have some initial concerns with placing your API key directly within your JavaScript source files, but rest assured this is perfectly safe. All client-side code must be downloaded by the client; therefore, the client must download this API key - it is not intended to be secret. Google has security measures in place to ensure your key is not abused. **It is not technically possible to make anything secret on the client-side.**
+8. Check your work against the [Project Rubric](https://review.udacity.com/?_ga=1.189245867.12280332.1465333852#!/projects/2962818615/rubric).
+9. When you are satisfied with your project, submit it according to the Submission Instructions below.
 
-};
+### By the end:
+Your resume will look something like this
+![](http://i.imgur.com/pWU1Xbl.png)
 
-var formattedRole = HTMLheaderRole.replace ("%data%", bio.role);
-$("#header").prepend(formattedRole);
-var formattedName = HTMLheaderName.replace ("%data%", bio.name);
-$("#header").prepend(formattedName);
-var formattedPic = HTMLbioPic.replace ("%data%", bio.biopic);
-$("#header").append(formattedPic);
+And your repository will include the following files:
 
-var formattedMobile = HTMLmobile.replace ("%data%", bio.contacts.mobile);
-var formattedEmail = HTMLemail.replace ("%data%", bio.contacts.email);
-var formattedGithub = HTMLgithub.replace ("%data%", bio.contacts.github);
-var formattedLocation = HTMLlocation.replace ("%data%", bio.contacts.location);
-var formattedContact = formattedMobile + formattedEmail + formattedGithub + formattedLocation;
-$("#topContacts, #footerContacts").append(formattedContact);
+* **index.html**: The main HTML document. Contains links to all of the CSS and JS resources needed to render the resume, including resumeBuilder.js.
+* **js/helper.js**: Contains helper code needed to format the resume and build the map. It also has a few function shells for additional functionality. More on helper.js further down.
+* **js/resumeBuilder.js**: This file is empty. You should write your code here.
+* **js/jQuery.js**: The jQuery library.
+* **css/style.css**: Contains all of the CSS needed to style the page.
+* **README.md**: 
+The GitHub readme file.
+* and some images in the images directory.
 
-var formattedMsg = HTMLwelcomeMsg.replace ("%data%", bio.welcomeMessage);
-$("#header").append(formattedMsg);
-$("#header").append(HTMLskillsStart);
-for(var i = 0; i < bio.skills.length; i++) {
-  $("#skills").append(HTMLskills.replace("%data%", bio.skills[i]));
-}
+## Your starting point...
+### js/helper.js
+Within helper.js, you’ll find a large collection of strings containing snippets of HTML. Within many snippets, you’ll find placeholder data in the form of `%data%` or `%contact%`.
 
-/*if(bio.skills.length > 0)
-{
+Each string has a title that describes how it should be used. For instance, `HTMLworkStart` should be the first `<div>` in the Work section of the resume. `HTMLschoolLocation` contains a `%data%` placeholder which should be replaced with the location of one of your schools.
 
-  var formattedSkills = HTMLskills.replace ("%data%", bio.skills[0]);
-  $("#skills").append(formattedSkills);
-  formattedSkills = HTMLskills.replace("%data%",bio.skills[1]);
-  $("#skills").append(formattedSkills);
-  formattedSkills = HTMLskills.replace("%data%",bio.skills[2]);
-  $("#skills").append(formattedSkills);
-}*/
+### Your process:
+The resume has four distinct sections: work, education, projects and a header with biographical information. You’ll need to:
 
-var work = {
-  "jobs" : [
-    {
-      "employer" : "Infosys",
-      "title" : "Trainee",
-      "location" : "Mysore",
-      "dates" : "In Progress",
-      "description" : "I have been recruited by the Infosys in our College Campus Placement. Now I undertook the nanodegree program offered by Udacity and currently doing the Front End Web Developer course."
-    }
-  ]
+1. Build four JavaScript objects, each one representing a different resume section. The objects that you create (including property names and the data types of their values) need to follow the schema below exactly. All properties should be included and contain a value of the type specified unless the property is marked 'optional'. Property values may contain real or fake data. Property names are case-sensitive. Make sure your javaScript objects are formatted correctly using [jshint.com](http://jshint.com/).
 
-};
-function displayWork() {
-for (var job = 0; job < work.jobs.length; job++ ) {
-  $("#workExperience").append(HTMLworkStart);
-  var formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
-  var formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
-  var formattedEmployerTitle = formattedEmployer + formattedTitle;
-  $(".work-entry:last").append(formattedEmployerTitle);
-  var formattedLocation = HTMLworkLocation.replace("%data%",work.jobs[job].location);
-  $(".work-entry:last").append(formattedLocation);
-  var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
-  $(".work-entry:last").append(formattedDates);
-  var formattedDescription = HTMLworkDescription.replace("%data%",work.jobs[job].description);
-  $(".work-entry:last").append(formattedDescription);
-}
-}
-displayWork();
-var projects = {
-  "projects" : [
-    {
-      "title" : "Build a Portfolio",
-      "dates" : "2016",
-      "description" : "Helps to develop a responsive website that will display images, descriptions and links to each of the portfolio projects on all devices using bootstrap",
-      "images": ["http://petapixel.com/assets/uploads/2013/07/thumbnails.jpg"]
-    }
-  ]
-};
-function displayProjects() {
-  for(var project = 0; project < projects.projects.length; project++) {
-    $("#projects").append(HTMLprojectStart);
-    var formattedTitle = HTMLprojectTitle.replace("%data%",projects.projects[project].title);
-    $(".project-entry:last").append(formattedTitle);
-    var formattedDates = HTMLprojectDates.replace("%data%",projects.projects[project].dates);
-    $(".project-entry:last").append(formattedDates);
-    var formattedDescription = HTMLprojectDescription.replace("%data%",projects.projects[project].description);
-    $(".project-entry:last").append(formattedDescription);
-    var formattedImages = HTMLprojectImage.replace("%data%",projects.projects[project].images);
-    $(".project-entry:last").append(formattedImages);
+  * `bio` contains:
+        
+            name : string
+            role : string
+            contacts : an object with
+                  mobile: string
+                  email: string 
+                  github: string
+                  twitter: string (optional)
+                  location: string
+            welcomeMessage: string 
+            skills: array of strings
+            biopic: string url
+            display: function taking no parameters
 
-  }
-}
-displayProjects();
+  * `education` contains:
+      
+            schools: array of objects with
+                 name: string
+                 location: string
+                 degree: string
+                 majors: array of strings
+                 dates: string (works with a hyphen between them)
+                 url: string
+            onlineCourses: array of objects with
+                 title: string
+                 school: string
+                 dates: string (works with a hyphen between them)
+                 url: string
+            display: function taking no parameters
 
-var education = {
-  "schools" : [
-    {
-      "name" : "GVHSS",
-      "location" : "TamilNadu",
-      "degree" : "HSC",
-      "dates" : "2010-2012",
-      "majors" : ["Computer Science"],
-      "url" : "images/fry.jpg"
-    },
-    {
-      "name" : "MCET",
-      "location" : "Pollachi",
-      "degree" : "BE",
-      "dates" : "2012-2016",
-      "majors" : ["Engineering"],
-      "url" : "images/fry.jpg"
-    }
-  ],
-  "onlineCourses" : [
-    {
-      "title" : "Front End Web Developer",
-      "school" : "Udacity",
-      "dates" : "2016",
-      "url" : "images/fry.jpg"
+  * `work` contains
+          
+            jobs: array of objects with
+                 employer: string 
+                 title: string 
+                 location: string 
+                 dates: string (Can be 'in progress')
+                 description: string 
+            display: function taking no parameters
 
-    }
-  ]
-};
-function displayEducation() {
-	for(var school = 0; school < education.schools.length; school++) {
-		$("#education").append(HTMLschoolStart);
+  * `projects` contains:
 
-		var formattedSchoolName = HTMLschoolName.replace("%data%",education.schools[school].name);
-		var formattedSchoolDegree = HTMLschoolDegree.replace("%data%",education.schools[school].degree);
-    var formattedNameDegree = formattedSchoolName + formattedSchoolDegree;
-    $(".education-entry:last").append(formattedNameDegree);
+            projects: array of objects with
+                  title: string 
+                  dates: string (works with a hyphen between them)
+                  description: string
+                  images: array with string urls
+            display: function taking no parameters
 
-		var formattedSchoolDates = HTMLschoolDates.replace("%data%",education.schools[school].dates);
-    $(".education-entry:last").append(formattedSchoolDates);
-
-		var formattedSchoolLocation = HTMLschoolLocation.replace("%data%",education.schools[school].location);
-    $(".education-entry:last").append(formattedSchoolLocation);
-
-		var formattedSchoolMajor = HTMLschoolMajor.replace("%data%",education.schools[school].majors);
-    $(".education-entry:last").append(formattedSchoolMajor);
-   }
-
-    $("#education").append(HTMLonlineClasses);
-	  for(var onlineCourse = 0; onlineCourse < education.onlineCourses.length; onlineCourse++) {
-      $("#education").append(HTMLschoolStart);
-
-    var formattedTitle = HTMLonlineTitle.replace("%data%",education.onlineCourses[onlineCourse].title);
-		var formattedSchool = HTMLonlineSchool.replace("%data%",education.onlineCourses[onlineCourse].school);
-    $(".education-entry:last").append(formattedTitle + formattedSchool);
-		var formattedDates = HTMLonlineDates.replace("%data%",education.onlineCourses[onlineCourse].dates);
-    $(".education-entry:last").append(formattedDates);
-
-		var formattedURL = HTMLonlineURL.replace("%data%",education.onlineCourses[onlineCourse].url);
-    //$(".education-entry:last").append(formattedURL);
-	}
-};
-displayEducation();
-
-
-//you want to see a map?
-$("#mapDiv").append(googleMap);
+2. Iterate through each javaScript object and append its information to index.html in the correct section.
+  * First off, you’ll be using jQuery’s `selector.append()` and `selector.prepend()` functions to modify index.html. `selector.append()` makes an element appear at the end of a selected section. `selector.prepend()` makes an element appear at the beginning of a selected section.
+    * Pay close attention to the ids of the `<div>`s in index.html and the HTML snippets in helper.js. They’ll be very useful as jQuery selectors for `selector.append()` and `selector.prepend()`
+  * You’ll also be using the JavaScript method `string.replace(old, new)` to swap out all the placeholder text (e.g. `%data%`) for data from your resume JSON objects.
+  * Here’s an example of some code that would add the location of one your companies to the page:
+    * `var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);`
+    * `$(".work-entry:last").append(formattedLocation);`
+  * Use the mockup at the page of this document as a guide for the order in which you should append elements to the page.
+3. The resume includes an interactive map. Do the following to add it. 
+  * In resumeBuilder.js, append the googleMap string to `<div id=”mapDiv”>`.
+  * In index.html, uncomment the Google script element: `<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>`
+  * In helper.js, at the bottom of the file, uncomment code to initialize map and set fitBounds.
+4. All of your code for adding elements to the resume should be contained within functions. 
+5. As described in the javaScript object schema, each 'display' function should be encapsulated within the javaScript object it displays in the resume. For instance, your 'display' function for appending 'work' experience data to the resume should be encapsulated within the 'work' javaScript object. The 'display' function can be encapsulated within the 'work' javaScript object definition in the same way other properties are defined there, or it can be encapsulated later in the file using dot notation. For example: `work.display =`
+6. It’s possible to make additional information show up when you click on the pins in the map. Check out line 174 in helper.js and the Google Maps API to get started.
